@@ -1,4 +1,4 @@
-package me.lawrenceli.security;
+package me.lawrenceli.config.security;
 
 import me.lawrenceli.service.UserService;
 import me.lawrenceli.utils.ResponseUtil;

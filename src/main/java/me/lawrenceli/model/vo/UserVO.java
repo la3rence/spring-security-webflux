@@ -1,6 +1,6 @@
-package me.lawrenceli.vo;
+package me.lawrenceli.model.vo;
 
-import me.lawrenceli.entity.Role;
+import me.lawrenceli.model.entity.Role;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package me.lawrenceli.dto;
+package me.lawrenceli.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

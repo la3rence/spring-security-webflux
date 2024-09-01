@@ -2,7 +2,7 @@ package me.lawrenceli.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import me.lawrenceli.entity.Movie;
+import me.lawrenceli.model.entity.Movie;
 import me.lawrenceli.service.MovieService;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.http.HttpStatus;

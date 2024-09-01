@@ -1,7 +1,7 @@
 package me.lawrenceli.service;
 
 import jakarta.validation.constraints.NotNull;
-import me.lawrenceli.entity.Movie;
+import me.lawrenceli.model.entity.Movie;
 import me.lawrenceli.repository.MovieRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

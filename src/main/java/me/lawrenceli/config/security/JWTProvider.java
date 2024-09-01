@@ -1,4 +1,4 @@
-package me.lawrenceli.security;
+package me.lawrenceli.config.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

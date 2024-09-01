@@ -2,13 +2,13 @@ package me.lawrenceli.service;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
-import me.lawrenceli.dto.UserDTO;
-import me.lawrenceli.entity.Role;
-import me.lawrenceli.entity.User;
+import me.lawrenceli.model.dto.UserDTO;
+import me.lawrenceli.model.entity.Role;
+import me.lawrenceli.model.entity.User;
 import me.lawrenceli.repository.RoleRepository;
 import me.lawrenceli.repository.UserRepository;
 import me.lawrenceli.repository.UserRoleRepository;
-import me.lawrenceli.vo.UserVO;
+import me.lawrenceli.model.vo.UserVO;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

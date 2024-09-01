@@ -1,4 +1,4 @@
-package me.lawrenceli.security;
+package me.lawrenceli.config.security;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.server.reactive.ServerHttpRequest;

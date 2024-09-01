@@ -1,4 +1,4 @@
-package me.lawrenceli.entity;
+package me.lawrenceli.model.entity;
 
 import org.springframework.data.annotation.Id;
 
