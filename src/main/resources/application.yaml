@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: demo
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/spring
+    username: root
+    password: 123456
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  cloud.gateway:
+    globalcors:
+      cors-configurations:
+        '[/**]':
+          allowedOrigins: "https://www.google.com"
+          allowedMethods:
+            - GET
+            - POST
+            - DELETE
+            - PUT
+            - PATCH
+          allowedHeaders: '*'
+          allowCredentials: true
+          maxAge: 3600
+    filter:
+      request-rate-limiter.deny-empty-key: false
+    routes:
+      - id: rate_limit
+        uri: http://localhost:8080
+        predicates:
+          - Path=/api/**
+        filters:
+          - StripPrefix=1
+          - name: RequestRateLimiter
+            args:
+              key-resolver: "#{@remoteAddrKeyResolver}"
+              redis-rate-limiter.replenishRate: 20
+              redis-rate-limiter.burstCapacity: 20
+              redis-rate-limiter.requestedTokens: 1
+#      - id: block_non_api
+#        uri: no://op
+#        predicates:
+#          - Path=/**
+#        filters:
+#          - SetStatus=FORBIDDEN
+management.endpoints.web.exposure.include: "*"
+springdoc:
+  show-login-endpoint: false
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.r2dbc: DEBUG
