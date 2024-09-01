@@ -2,7 +2,7 @@ version: "3"
 
 services:
   mysql:
-    image: docker.lawrenceli.me/mysql:8.4
+    image: docker.lawrenceli.me/mysql:9.0
     container_name: spring-mysql
     environment:
       - MYSQL_ROOT_PASSWORD=123456
