@@ -1,5 +1,18 @@
 # Spring Security WebFlux with R2DBC
 
+## Roadmap
+
+- [ ] RBAC (WIP)
+- [ ] CI/CD
+- [x] Containerize
+- [ ] Unit Test
+- [ ] Global REST Response
+- [ ] Persistent Entity
+- [ ] Customized Exception
+- [ ] Exception Handler (WIP)
+- [ ] Logger
+- [ ] Monitor & Trace
+
 ## docker
 
 ```shell
