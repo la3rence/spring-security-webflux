@@ -3,6 +3,7 @@
 ## Roadmap
 
 - [ ] RBAC (WIP)
+- [ ] Pagination
 - [ ] CI/CD
 - [x] Containerize
 - [ ] Unit Test
