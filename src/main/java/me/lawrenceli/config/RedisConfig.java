@@ -21,7 +21,7 @@ public class RedisConfig {
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(serializer))
-                .entryTtl(Duration.ofHours(1)); // 设置缓存过期时间
+                .entryTtl(Duration.ofMinutes(10));
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
                 .build();

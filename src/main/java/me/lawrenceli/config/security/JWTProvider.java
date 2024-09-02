@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 public class JWTProvider {
 
     private static final String AUTHORITIES_KEY = "roles";
-    private static final long VALIDITY_MS = 3600 * 1000;
-    private static final String SECRET_KEY = "abcdefghijklmnopqrstuvwxyz";
+    private static final long VALIDITY_MS = 12 * 3600 * 1000; // 12 Hours
+    private static final String SECRET_KEY = "abcdefghijklmnopqrstuvwxyz"; // change me for private key
 
     private SecretKey secretKey;
 

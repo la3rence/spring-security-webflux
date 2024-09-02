@@ -11,7 +11,10 @@ import me.lawrenceli.service.UserService;
 import me.lawrenceli.model.vo.UserVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +25,7 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "用户")
+@Tag(name = "User")
 @SecurityRequirement(name = "jwt")
 public class UserController {
 
@@ -32,10 +35,17 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/me")
+    @GetMapping
     @Operation(summary = "Current User")
     public Mono<UserVO> me(@Schema(hidden = true) @AuthenticationPrincipal Principal principal) {
         return userService.getUserDetails(principal.getName());
+    }
+
+    // CRUD
+    @GetMapping("/{name}")
+    @Operation(summary = "Query User By Name")
+    public Mono<UserVO> queryUserByName(@PathVariable String name) {
+        return userService.getUserDetailsFluent(name);
     }
 
     @PostMapping
@@ -43,5 +53,19 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public Mono<User> addUser(@RequestBody @Valid UserDTO user) {
         return userService.addUser(user); // .map(ResponseEntity::ok);
+    }
+
+    @DeleteMapping("/{userId}")
+    @Operation(summary = "Delete User")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Mono<Boolean> deleteUser(@PathVariable Long userId) {
+        return userService.deleteUser(userId);
+    }
+
+    @PatchMapping("/{userId}")
+    @Operation(summary = "Disable User")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Mono<User> setUserInactive(@PathVariable Long userId) {
+       return userService.userSetActive(userId, false);
     }
 }

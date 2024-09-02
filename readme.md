@@ -1,10 +1,12 @@
 # Spring Security WebFlux with R2DBC
 
-```shell
-mvn clean package
-docker-compose up -d --build
-```
+## docker
 
 ```shell
-docker-compose down
+# for mysql data in container
+mkdir -p /var/tmp/mysql_data/
+# build jar
+mvn clean package -Dmaven.test.skip=true
+# set up database
+docker-compose up -d --build
 ```

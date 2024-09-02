@@ -15,17 +15,17 @@ services:
     container_name: spring-redis
     ports:
       - "6379:6379"
-  spring:
-    build:
-      context: ./
-    image: spring-app:latest
-    container_name: spring-app
-    environment:
-      - MYSQL_URL=r2dbc:mysql://mysql:3306/spring
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    depends_on:
-      - mysql
-      - redis
-    ports:
-      - "8080:8080"
+#  spring:
+#    build:
+#      context: ./
+#    image: spring-app:latest
+#    container_name: spring-app
+#    environment:
+#      - MYSQL_URL=r2dbc:mysql://mysql:3306/spring
+#      - REDIS_HOST=redis
+#      - REDIS_PORT=6379
+#    depends_on:
+#      - mysql
+#      - redis
+#    ports:
+#      - "8080:8080"

@@ -3,12 +3,13 @@ spring:
     name: demo
   r2dbc:
     url: ${MYSQL_URL:r2dbc:mysql://localhost:3306/spring}
-    username: root
-    password: 123456
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASS:123456}
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
+      database: ${REDIS_DB:0}
   cloud.gateway:
     globalcors:
       cors-configurations:
@@ -23,8 +24,6 @@ spring:
           allowedHeaders: '*'
           allowCredentials: true
           maxAge: 3600
-    filter:
-      request-rate-limiter.deny-empty-key: false
     routes:
       - id: rate_limit
         uri: http://localhost:8080
@@ -44,7 +43,14 @@ spring:
 #          - Path=/**
 #        filters:
 #          - SetStatus=FORBIDDEN
-management.endpoints.web.exposure.include: "*"
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    gateway:
+      enabled: true
 springdoc:
   show-login-endpoint: false
 logging:
