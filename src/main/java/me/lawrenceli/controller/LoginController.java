@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import me.lawrenceli.model.dto.LoginDTO;
 import me.lawrenceli.config.security.JWTProvider;
+import me.lawrenceli.utils.R;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,13 +32,13 @@ public class LoginController {
 
     @PostMapping
     @Operation
-    public Mono<ResponseEntity<?>> login(@Valid @RequestBody Mono<LoginDTO> dto) {
+    public Mono<R<?>> login(@Valid @RequestBody Mono<LoginDTO> dto) {
         return dto.flatMap(login -> reactiveAuthenticationManager
                         .authenticate(new UsernamePasswordAuthenticationToken(login.username(), login.password()))
                         .map(tokenProvider::createToken))
                 .map(jwt -> {
                     var tokenBody = Map.of("access_token", jwt);
-                    return ResponseEntity.ok(tokenBody);
+                    return R.success(tokenBody);
                 });
     }
 

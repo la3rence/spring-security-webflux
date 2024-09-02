@@ -9,6 +9,7 @@ import me.lawrenceli.model.dto.UserDTO;
 import me.lawrenceli.model.entity.User;
 import me.lawrenceli.service.UserService;
 import me.lawrenceli.model.vo.UserVO;
+import me.lawrenceli.utils.R;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,28 +45,28 @@ public class UserController {
     // CRUD
     @GetMapping("/{name}")
     @Operation(summary = "Query User By Name")
-    public Mono<UserVO> queryUserByName(@PathVariable String name) {
-        return userService.getUserDetailsFluent(name);
+    public Mono<R<UserVO>> queryUserByName(@PathVariable String name) {
+        return userService.getUserDetailsFluent(name).map(R::success);
     }
 
     @PostMapping
     @Operation(summary = "Add User")
-    @PreAuthorize("hasRole('ADMIN')")
-    public Mono<User> addUser(@RequestBody @Valid UserDTO user) {
-        return userService.addUser(user); // .map(ResponseEntity::ok);
+    //    @PreAuthorize("hasRole('ADMIN')")
+    public Mono<R<User>> addUser(@RequestBody @Valid UserDTO user) {
+        return userService.addUser(user).map(R::success);
     }
 
     @DeleteMapping("/{userId}")
     @Operation(summary = "Delete User")
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<Boolean> deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    public Mono<R<Boolean>> deleteUser(@PathVariable Long userId) {
+        return userService.deleteUser(userId).map(R::success);
     }
 
     @PatchMapping("/{userId}")
     @Operation(summary = "Disable User")
     @PreAuthorize("hasRole('ADMIN')")
-    public Mono<User> setUserInactive(@PathVariable Long userId) {
-       return userService.userSetActive(userId, false);
+    public Mono<R<User>> setUserInactive(@PathVariable Long userId) {
+        return userService.userSetActive(userId, false).map(R::success);
     }
 }

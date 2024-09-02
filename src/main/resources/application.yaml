@@ -55,5 +55,5 @@ springdoc:
   show-login-endpoint: false
 logging:
   level:
-    org.springframework.cloud.gateway: DEBUG
+#    org.springframework.cloud.gateway: DEBUG
     org.springframework.r2dbc: DEBUG

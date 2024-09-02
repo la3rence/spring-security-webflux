@@ -20,8 +20,9 @@ public class ResponseUtil {
         ServerHttpResponse response = exchange.getResponse();
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         response.setRawStatusCode(detail.getStatus());
+        R<?> failObject = R.fail(detail.getTitle());
         try {
-            byte[] bytes = mapper.writeValueAsBytes(detail);
+            byte[] bytes = mapper.writeValueAsBytes(failObject);
             DataBuffer buffer = response.bufferFactory().wrap(bytes);
             return response.writeWith(Mono.just(buffer));
         } catch (JsonProcessingException e) {

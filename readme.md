@@ -2,17 +2,16 @@
 
 ## Roadmap
 
-- [ ] RBAC (WIP)
-- [ ] Pagination
-- [ ] CI/CD
+- [x] RBAC
 - [x] Containerize
-- [ ] Unit Test
-- [ ] Global REST Response
+- [x] Global REST Response
+- [ ] Pagination
 - [ ] Persistent Entity
-- [ ] Customized Exception
-- [ ] Exception Handler (WIP)
+- [x] Customized Exception and Handler
 - [ ] Logger
+- [ ] CI/CD
 - [ ] Monitor & Trace
+- [ ] Unit Test
 
 ## docker
 
