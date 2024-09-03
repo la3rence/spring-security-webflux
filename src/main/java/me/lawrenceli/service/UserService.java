@@ -56,12 +56,15 @@ public class UserService {
     //    @Cacheable(key = "#name", value = "user")
     public Mono<UserVO> getUserDetails(@NotNull String name) {
         logger.info("get user details: {}", name);
-        return userRepository.findByName(name)
-                .flatMap(user -> userRoleRepository.findByUserId(user.userId())
-                        .flatMap(userRole -> roleRepository.findById(userRole.roleId()))
-                        .collectList()
-                        .map(roles -> new UserVO(user.userId(), user.name(), user.mail(), user.password(),
-                                user.active(), roles)));
+        return userRepository
+                .findByName(name)
+                .flatMap(user ->
+                        userRoleRepository.findByUserId(user.userId())
+                                .map(UserRole::roleId)
+                                .flatMap(roleRepository::findById)
+                                .collectList()
+                                .map(roles -> new UserVO(user.userId(), user.name(), user.mail(), user.password(),
+                                        user.active(), roles)));
     }
 
     public Mono<UserVO> getUserDetailsFluent(@NotNull String name) {
