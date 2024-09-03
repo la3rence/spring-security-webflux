@@ -2,6 +2,8 @@ package me.lawrenceli.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import me.lawrenceli.model.Page;
+import me.lawrenceli.model.PageDTO;
 import me.lawrenceli.model.entity.Movie;
 import me.lawrenceli.service.MovieService;
 import me.lawrenceli.utils.R;
@@ -9,6 +11,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -26,7 +29,7 @@ import java.util.List;
  * @since 2024/08/31
  */
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/movies")
 @Tag(name = "Resource")
 public class MovieController {
 
@@ -40,7 +43,7 @@ public class MovieController {
         this.movieService = movieService;
     }
 
-    @GetMapping("/movie")
+    @GetMapping
     @Operation(summary = "movie")
     @ResponseStatus(HttpStatus.OK)
     public Mono<R<List<Movie>>> movies(@RequestParam(required = false) String title) {
@@ -51,10 +54,19 @@ public class MovieController {
         return movieService.findAll().collectList().map(R::success);
     }
 
+    @GetMapping("page")
+    @Operation(summary = "movie")
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<R<Page<Movie>>> pageMovies(@RequestParam(required = false) String title,
+                                           @ParameterObject PageDTO page) {
+        return movieService.page(title, page).map(R::success);
+    }
+
     @GetMapping("/hello")
     public Mono<R<String>> hello() {
         logger.info("hello reactive");
         // reactive redis query
         return reactiveRedisTemplate.<String, String>opsForHash().get("test", "hi").map(R::success);
     }
+
 }

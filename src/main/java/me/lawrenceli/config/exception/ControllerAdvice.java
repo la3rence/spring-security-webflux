@@ -24,4 +24,10 @@ public class ControllerAdvice /* extends ResponseEntityExceptionHandler */ {
         return Mono.just(R.fail(e.getMessage()));
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Mono<R<ProblemDetail>> handle400(IllegalArgumentException e) {
+        return Mono.just(R.fail(e.getMessage()));
+    }
+
 }

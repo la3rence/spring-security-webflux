@@ -11,8 +11,10 @@ import reactor.core.publisher.Mono;
 
 import java.util.Objects;
 
+import static me.lawrenceli.config.Constants.API_PREFIX;
+
 @Configuration
-@OpenAPIDefinition(servers = {@Server(url = "/api", description = "URL Prefix")})
+@OpenAPIDefinition(servers = {@Server(url = API_PREFIX, description = "URL Prefix")})
 @SecurityScheme(
         name = "jwt",
         type = SecuritySchemeType.HTTP,

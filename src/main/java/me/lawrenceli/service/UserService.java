@@ -14,7 +14,6 @@ import me.lawrenceli.repository.UserRoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -54,8 +53,9 @@ public class UserService {
     /**
      * For spring security user details service
      */
-    @Cacheable(key = "#name", value = "user")
+    //    @Cacheable(key = "#name", value = "user")
     public Mono<UserVO> getUserDetails(@NotNull String name) {
+        logger.info("get user details: {}", name);
         return userRepository.findByName(name)
                 .flatMap(user -> userRoleRepository.findByUserId(user.userId())
                         .flatMap(userRole -> roleRepository.findById(userRole.roleId()))

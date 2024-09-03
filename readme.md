@@ -5,8 +5,7 @@
 - [x] RBAC
 - [x] Containerize
 - [x] Global REST Response
-- [ ] Pagination
-- [ ] Persistent Entity
+- [x] Pagination
 - [x] Customized Exception and Handler
 - [x] Logger
 - [ ] CI/CD

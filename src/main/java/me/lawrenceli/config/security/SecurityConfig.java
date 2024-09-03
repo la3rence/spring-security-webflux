@@ -20,6 +20,8 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 
+import static me.lawrenceli.config.Constants.API_PREFIX;
+
 @EnableWebFluxSecurity // reactive security context
 @EnableReactiveMethodSecurity // reactive pre authorize check
 @Configuration
@@ -43,7 +45,7 @@ public class SecurityConfig {
                 .logout(ServerHttpSecurity.LogoutSpec::disable)
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .authorizeExchange(it ->
-                        it.pathMatchers("/api/user/**").authenticated()
+                        it.pathMatchers(API_PREFIX + "/user/**").authenticated()
                                 .anyExchange().permitAll()
                 )
                 .exceptionHandling(spec ->

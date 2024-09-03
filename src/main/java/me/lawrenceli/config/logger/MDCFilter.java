@@ -1,4 +1,4 @@
-package me.lawrenceli.config;
+package me.lawrenceli.config.logger;
 
 import io.micrometer.context.ContextRegistry;
 import org.slf4j.Logger;
@@ -31,9 +31,9 @@ public class MDCFilter implements WebFilter {
         String requestId = getRequestId(request.getHeaders());
         // https://gist.github.com/chemicL/0e0d8e95e28414f0ecb769a5b8ca326e
         // maybe we can use https://github.com/Numichi/reactive-logger
-        ContextRegistry.getInstance().registerThreadLocalAccessor(
-                REQUEST_ID, () -> MDC.get(REQUEST_ID),
+        ContextRegistry.getInstance().registerThreadLocalAccessor(REQUEST_ID, () -> MDC.get(REQUEST_ID),
                 value -> MDC.put(REQUEST_ID, requestId), () -> MDC.remove(REQUEST_ID));
+
         MDC.put(REQUEST_ID, requestId);
         logger.info("Request {}", exchange.getRequest().getPath());
 
