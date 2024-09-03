@@ -59,7 +59,7 @@ public class MovieController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<R<Page<Movie>>> pageMovies(@RequestParam(required = false) String title,
                                            @ParameterObject PageDTO page) {
-        return movieService.page(title, page).map(R::success);
+        return R.success(movieService.page(title, page));
     }
 
     @GetMapping("/hello")

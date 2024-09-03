@@ -1,8 +1,9 @@
 package me.lawrenceli.config.exception;
 
 import me.lawrenceli.utils.R;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ProblemDetail;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -12,22 +13,25 @@ import reactor.core.publisher.Mono;
 @RestControllerAdvice
 public class ControllerAdvice /* extends ResponseEntityExceptionHandler */ {
 
+    private static final Logger logger = LoggerFactory.getLogger(ControllerAdvice.class);
+
     @ExceptionHandler(AuthenticationException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public Mono<R<ProblemDetail>> handle401(AuthenticationException e) {
-        return Mono.just(R.fail(e.getMessage()));
+    public Mono<R<String>> handle401(AuthenticationException e) {
+        logger.warn(e.getMessage());
+        return R.monoFail(e.getMessage());
     }
 
     @ExceptionHandler(CheckException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Mono<R<ProblemDetail>> handle400(CheckException e) {
-        return Mono.just(R.fail(e.getMessage()));
+    public Mono<R<String>> handle400(CheckException e) {
+        return R.monoFail(e.getMessage());
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Mono<R<ProblemDetail>> handle400(IllegalArgumentException e) {
-        return Mono.just(R.fail(e.getMessage()));
+    public Mono<R<String>> handle400(IllegalArgumentException e) {
+        return R.monoFail(e.getMessage());
     }
 
 }

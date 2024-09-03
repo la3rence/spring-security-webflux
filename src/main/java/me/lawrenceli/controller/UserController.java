@@ -42,31 +42,30 @@ public class UserController {
         return userService.getUserDetails(principal.getName());
     }
 
-    // CRUD
     @GetMapping("/{name}")
     @Operation(summary = "Query User By Name")
     public Mono<R<UserVO>> queryUserByName(@PathVariable String name) {
-        return userService.getUserDetailsFluent(name).map(R::success);
+        return R.success(userService.getUserDetailsFluent(name));
     }
 
     @PostMapping
     @Operation(summary = "Add User")
     //    @PreAuthorize("hasRole('ADMIN')")
     public Mono<R<User>> addUser(@RequestBody @Valid UserDTO user) {
-        return userService.addUser(user).map(R::success);
+        return R.success(userService.addUser(user));
     }
 
     @DeleteMapping("/{userId}")
     @Operation(summary = "Delete User")
     @PreAuthorize("hasRole('ADMIN')")
     public Mono<R<Boolean>> deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId).map(R::success);
+        return R.success(userService.deleteUser(userId));
     }
 
     @PatchMapping("/{userId}")
     @Operation(summary = "Disable User")
     @PreAuthorize("hasRole('ADMIN')")
     public Mono<R<User>> setUserInactive(@PathVariable Long userId) {
-        return userService.userSetActive(userId, false).map(R::success);
+        return R.success(userService.userSetActive(userId, false), "disabled");
     }
 }

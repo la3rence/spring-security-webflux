@@ -1,5 +1,7 @@
 package me.lawrenceli.utils;
 
+import reactor.core.publisher.Mono;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -19,6 +21,35 @@ public class R<T> implements Serializable {
         this.data = data;
         this.success = success;
     }
+
+    public static <T> Mono<R<T>> monoSuccess(T data) {
+        return Mono.just(R.success(data));
+    }
+
+    public static <T> Mono<R<T>> monoSuccess(T data, String msg) {
+        return Mono.just(R.success(data, msg));
+    }
+
+    public static <T> Mono<R<T>> monoFail(String msg) {
+        return Mono.just(R.fail(msg));
+    }
+
+    public static <T> Mono<R<T>> monoFail(T data, String msg) {
+        return Mono.just(R.fail(data, msg));
+    }
+
+    public static <T> Mono<R<T>> success(Mono<T> mono) {
+        return mono.map(R::success);
+    }
+
+    public static <T> Mono<R<T>> success(Mono<T> mono, String msg) {
+        return mono.map(data -> R.success(data, msg));
+    }
+
+    public static <T> Mono<R<T>> fail(Mono<T> mono, String msg) {
+        return mono.map(data -> R.fail(data, msg));
+    }
+
 
     public static <T> R<T> success(T data) {
         return R.result(true, data, null);
