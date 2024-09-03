@@ -2,13 +2,12 @@ package me.lawrenceli.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import me.lawrenceli.model.Page;
 import me.lawrenceli.model.PageDTO;
 import me.lawrenceli.model.entity.Movie;
 import me.lawrenceli.service.MovieService;
 import me.lawrenceli.utils.R;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springdoc.core.annotations.ParameterObject;
@@ -56,9 +55,8 @@ public class MovieController {
 
     @GetMapping("page")
     @Operation(summary = "movie")
-    @ResponseStatus(HttpStatus.OK)
     public Mono<R<Page<Movie>>> pageMovies(@RequestParam(required = false) String title,
-                                           @ParameterObject PageDTO page) {
+                                           @ParameterObject @Valid PageDTO page) {
         return R.success(movieService.page(title, page));
     }
 

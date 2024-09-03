@@ -1,4 +1,8 @@
 spring:
+  web:
+    locale: zh
+    resources:
+      add-mapping: true
   application:
     name: demo
   r2dbc:
