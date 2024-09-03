@@ -11,6 +11,8 @@ import me.lawrenceli.model.vo.UserVO;
 import me.lawrenceli.repository.RoleRepository;
 import me.lawrenceli.repository.UserRepository;
 import me.lawrenceli.repository.UserRoleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
@@ -25,6 +27,7 @@ import static org.springframework.data.relational.core.query.Query.query;
 @Service
 public class UserService {
 
+    final Logger logger = LoggerFactory.getLogger(getClass());
     private final UserRepository userRepository;
     private final UserRoleRepository userRoleRepository;
     private final RoleRepository roleRepository;
@@ -72,6 +75,7 @@ public class UserService {
 
     @Transactional
     public Mono<User> addUser(@Valid UserDTO user) {
+        logger.info("adding user {}", user);
         return userRepository.findByName(user.name())
                 .flatMap(existing -> Mono.<User>error(new CheckException("Existing user name")))
                 .switchIfEmpty(

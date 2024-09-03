@@ -37,6 +37,10 @@ spring:
               redis-rate-limiter.replenishRate: 20
               redis-rate-limiter.burstCapacity: 20
               redis-rate-limiter.requestedTokens: 1
+    httpserver:
+      wiretap: true
+#    httpclient:
+#      wiretap: true
 #      - id: block_non_api
 #        uri: no://op
 #        predicates:
@@ -54,6 +58,7 @@ management:
 springdoc:
   show-login-endpoint: false
 logging:
+  pattern:
+    level: "[%X{X-Request-ID}] %5p"
   level:
-#    org.springframework.cloud.gateway: DEBUG
-    org.springframework.r2dbc: DEBUG
+    org.springframework.r2dbc.core: DEBUG

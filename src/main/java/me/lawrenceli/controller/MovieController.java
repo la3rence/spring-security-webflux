@@ -5,6 +5,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import me.lawrenceli.model.entity.Movie;
 import me.lawrenceli.service.MovieService;
 import me.lawrenceli.utils.R;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
@@ -26,6 +30,8 @@ import java.util.List;
 @Tag(name = "Resource")
 public class MovieController {
 
+    private final static Logger logger = LoggerFactory.getLogger(MovieController.class);
+
     private final ReactiveRedisTemplate<String, String> reactiveRedisTemplate;
     private final MovieService movieService;
 
@@ -39,6 +45,7 @@ public class MovieController {
     @ResponseStatus(HttpStatus.OK)
     public Mono<R<List<Movie>>> movies(@RequestParam(required = false) String title) {
         if (StringUtils.hasText(title)) {
+            logger.info("find title {}", title);
             return movieService.findByTitle(title).collectList().map(R::success);
         }
         return movieService.findAll().collectList().map(R::success);
@@ -46,6 +53,7 @@ public class MovieController {
 
     @GetMapping("/hello")
     public Mono<R<String>> hello() {
+        logger.info("hello reactive");
         // reactive redis query
         return reactiveRedisTemplate.<String, String>opsForHash().get("test", "hi").map(R::success);
     }

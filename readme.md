@@ -8,10 +8,11 @@
 - [ ] Pagination
 - [ ] Persistent Entity
 - [x] Customized Exception and Handler
-- [ ] Logger
+- [x] Logger
 - [ ] CI/CD
-- [ ] Monitor & Trace
+- [x] Monitor & Trace
 - [ ] Unit Test
+- [ ] Profile Configuration
 
 ## docker
 
@@ -22,4 +23,10 @@ mkdir -p /var/tmp/mysql_data/
 mvn clean package -Dmaven.test.skip=true
 # set up database
 docker-compose up -d --build
+```
+
+## netty access log
+
+```text
+-Dreactor.netty.http.server.accessLogEnabled=true
 ```
