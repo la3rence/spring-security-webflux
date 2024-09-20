@@ -4,7 +4,7 @@
 #RUN mkdir -p /root/.m2 && curl -sL https://go.lawrenceli.me/settings.xml -o /root/.m2/settings.xml
 #RUN mvn clean package -B -T 2C -Dmaven.test.skip=true
 #
-FROM docker.lawrenceli.me/azul/zulu-openjdk:17.0.12-jre
+FROM docker.lawrenceli.me/azul/zulu-openjdk:23.0.0-jre
 WORKDIR /workspace
 EXPOSE 8080
 #COPY --from=builder /workspace/target/*.jar /workspace/app.jar
