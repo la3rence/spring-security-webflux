@@ -22,7 +22,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jjwt.version>0.13.0</jjwt.version>
         <openapi.version>2.6.0</openapi.version>
-        <r2dbc.version>1.4.1</r2dbc.version>
+        <r2dbc.version>1.4.3</r2dbc.version>
     </properties>
 
     <dependencies>
